@@ -29,7 +29,9 @@ func _physics_process(_delta):
 
 	if is_on_floor() or is_on_wall():
 		if is_on_wall(): dxy.x = 0
-		if Input.is_key_pressed(KEY_LEFT):
+		if Input.is_key_pressed(KEY_LEFT) or Input.is_key_pressed(KEY_A):
 			dxy += Vector2.LEFT * SPEED
-		if Input.is_key_pressed(KEY_RIGHT):
+		if Input.is_key_pressed(KEY_RIGHT) or Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_E):
 			dxy += Vector2.RIGHT * SPEED
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().reload_current_scene()
