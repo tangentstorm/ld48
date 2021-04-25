@@ -1,6 +1,8 @@
 # script for room 0
 extends Node
 
+signal speak(who, msg)
+
 var co # coroutine
 var isPlaying : bool = true
 
@@ -16,20 +18,19 @@ func sleep(seconds):
 	yield(get_tree().create_timer(seconds), "timeout")
 	isPlaying = true
 
-onready var dialog = $"/root/scene/dialog"
-
 func teddy(msg):
-	speak("Teddy", msg)
+	emit_signal("speak", "teddy", msg)
 
-func speak(who, msg):
-	dialog.text = who + ": " + msg
+func ernie(msg):
+	emit_signal("speak", "ernie", msg)
 
 func script():
-	dialog.text = ""
 	yield()
-	teddy("Unnnnnnnghh...\n My poor head...")
+	teddy("Unnnnnnnghh... My poor head.")
 	sleep(2)
 	yield()
-	teddy("It's dangerous to go alone. Take this!")
-	$teleporter.visible = true
-	$teleporter.sleeping = false
+	teddy("Ernie? Are you okay?")
+	yield()
+	ernie("Was that an earthquake?")
+	$"sprites/teleporter".visible = true
+	$"sprites/teleporter".sleeping = false
