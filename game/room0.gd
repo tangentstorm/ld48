@@ -1,27 +1,32 @@
 # script for room 0
 extends Node
 
+signal wakeup()
 signal speak(who, msg)
 signal helptext(msg)
 
 var co # coroutine
-var isPlaying : bool = true
-var count : int = 0
+var sleepFor = 0.0
+var sleptFor = 0.0
 
 func _ready():
 	co = script()
 
 func _on_step():
-	if isPlaying:
+	if sleepFor <= 0:
 		if co: co = co.resume()
-		count += 1
+
+func _process(delta):
+	if sleepFor > 0:
+		sleepFor -= delta
+		if sleepFor <= 0:
+			emit_signal("wakeup")
+	on_frame(delta)
 
 func sleep(seconds):
-	isPlaying = false
-	var lastCount = count
-	yield(get_tree().create_timer(seconds), "timeout")
-	if count == lastCount:
-		isPlaying = true
+	sleepFor = seconds
+	yield(self, "wakeup")
+	sleepFor = 0
 
 func find(name):
 	return $sprites.get_node(name)
@@ -42,10 +47,10 @@ func ernie(msg):
 func helptext(msg):
 	emit_signal("helptext", msg)
 
-func _process(_delta):
+func on_frame(_delta):
 	if Input.is_key_pressed(KEY_0):
 		shake(0)
-		isPlaying = true
+		sleepFor = 0
 
 # --------------------------------------
 # logic specific to this room
