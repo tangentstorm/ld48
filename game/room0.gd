@@ -52,6 +52,13 @@ func on_frame(_delta):
 		shake(0)
 		sleepFor = 0
 
+func _on_ernie_reach_object(body):
+	helptext('Press E to Interact')
+
+func _on_ernie_leave_object(body):
+	helptext('')
+
+
 # --------------------------------------
 # logic specific to this room
 # --------------------------------------

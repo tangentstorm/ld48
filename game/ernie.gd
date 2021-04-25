@@ -1,6 +1,9 @@
 extends KinematicBody2D
 
+signal reach_object(body)
+signal leave_object(body)
 
+var focus : Node2D # whatever we're looking at
 var was_on_floor: bool = false
 var dxy : Vector2 = Vector2(0,0)
 const G : Vector2 = Vector2(0,98)
@@ -40,3 +43,12 @@ func _physics_process(_delta):
 		get_tree().reload_current_scene()
 
 	was_on_floor = is_on_floor()
+
+
+func _on_area_body_entered(body):
+	emit_signal("reach_object", body)
+	focus = body
+
+func _on_area_body_exited(body):
+	emit_signal("leave_object", body)
+	focus = null

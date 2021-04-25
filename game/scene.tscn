@@ -1,8 +1,8 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://floor-tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://sprites/exit.png" type="Texture" id=2]
-[ext_resource path="res://sprites/teleporter.png" type="Texture" id=3]
+[ext_resource path="res://teleporter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ernie.tscn" type="PackedScene" id=4]
 [ext_resource path="res://sprites/teddy.png" type="Texture" id=5]
 [ext_resource path="res://sprites/ivan.png" type="Texture" id=6]
@@ -13,41 +13,6 @@
 [ext_resource path="res://camshaker.gd" type="Script" id=13]
 [ext_resource path="res://sidebar.gd" type="Script" id=14]
 [ext_resource path="res://helptext.gd" type="Script" id=15]
-
-[sub_resource type="AtlasTexture" id=1]
-flags = 4
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 3 )
-region = Rect2( 128, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 3 )
-region = Rect2( 256, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 3 )
-region = Rect2( 384, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
-atlas = ExtResource( 3 )
-region = Rect2( 512, 0, 128, 128 )
-
-[sub_resource type="SpriteFrames" id=6]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="CircleShape2D" id=7]
 
 [sub_resource type="RectangleShape2D" id=8]
 
@@ -104,24 +69,9 @@ tile_data = PoolIntArray( -2, 1, 0, -1, 1, 65537, -65536, 2, 0, -65535, 2, 65537
 [node name="sprites" type="Node2D" parent="room"]
 
 [node name="ernie" parent="room/sprites" instance=ExtResource( 4 )]
+position = Vector2( 881.004, 1424.39 )
 
-[node name="teleporter" type="RigidBody2D" parent="room/sprites"]
-visible = false
-position = Vector2( 1140.98, 971.507 )
-sleeping = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="sprite" type="AnimatedSprite" parent="room/sprites/teleporter"]
-frames = SubResource( 6 )
-frame = 2
-playing = true
-
-[node name="shape" type="CollisionShape2D" parent="room/sprites/teleporter"]
-visible = false
-scale = Vector2( 3, 3 )
-shape = SubResource( 7 )
+[node name="teleporter" parent="room/sprites" instance=ExtResource( 3 )]
 
 [node name="ivan" type="RigidBody2D" parent="room/sprites"]
 visible = false
@@ -293,3 +243,5 @@ __meta__ = {
 [connection signal="helptext" from="room" to="camshaker/camera/helptext" method="_on_room_helptext"]
 [connection signal="showchat" from="room" to="camshaker/camera/sidebar" method="_on_room_showchat"]
 [connection signal="speak" from="room" to="camshaker/camera/sidebar/vbox/chatroom" method="_on_room0_speak"]
+[connection signal="leave_object" from="room/sprites/ernie" to="room" method="_on_ernie_leave_object"]
+[connection signal="reach_object" from="room/sprites/ernie" to="room" method="_on_ernie_reach_object"]
