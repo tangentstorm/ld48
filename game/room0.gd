@@ -88,3 +88,7 @@ func script():
 	teleporter.sleeping = false
 	teddy("Now be quick! Grab hold of this device and DO NOT LET go!"); sleep(2); yield()
 	teddy("Hurry, Ernie! The entire town might be at stake!"); yield()
+
+
+func _on_teleporter_teleport():
+	get_tree().change_scene_to(preload("res://scenes/ivan's-office.tscn"))

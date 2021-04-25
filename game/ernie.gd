@@ -33,6 +33,7 @@ var useDvorak = false
 func _ready():
 	pass # Replace with function body.
 
+var interacting = false
 
 func _physics_process(_delta):
 
@@ -61,9 +62,16 @@ func _physics_process(_delta):
 	if Input.is_key_pressed(KEY_F9):
 		useDvorak = not useDvorak
 		keys = QWERTY if useDvorak else DVORAK
+		
+	if Input.is_key_pressed(keys['ex']):
+		if focus and !interacting:
+			interacting = true
+			focus.on_interact_begin()
+	elif interacting:
+		interacting = false
+		focus.on_interact_end()
 
 	was_on_floor = is_on_floor()
-
 
 func _on_area_body_entered(body):
 	emit_signal("reach_object", body)
@@ -71,4 +79,7 @@ func _on_area_body_entered(body):
 
 func _on_area_body_exited(body):
 	emit_signal("leave_object", body)
+	if interacting:
+		interacting = false
+		focus.on_interact_end()
 	focus = null

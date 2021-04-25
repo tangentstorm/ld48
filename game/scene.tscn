@@ -72,6 +72,7 @@ tile_data = PoolIntArray( -2, 1, 0, -1, 1, 65537, -65536, 2, 0, -65535, 2, 65537
 position = Vector2( 881.004, 1424.39 )
 
 [node name="teleporter" parent="room/sprites" instance=ExtResource( 3 )]
+position = Vector2( 1147.75, 974.078 )
 
 [node name="ivan" type="RigidBody2D" parent="room/sprites"]
 visible = false
@@ -245,3 +246,4 @@ __meta__ = {
 [connection signal="speak" from="room" to="camshaker/camera/sidebar/vbox/chatroom" method="_on_room0_speak"]
 [connection signal="leave_object" from="room/sprites/ernie" to="room" method="_on_ernie_leave_object"]
 [connection signal="reach_object" from="room/sprites/ernie" to="room" method="_on_ernie_reach_object"]
+[connection signal="teleport" from="room/sprites/teleporter" to="room" method="_on_teleporter_teleport"]
