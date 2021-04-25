@@ -2,35 +2,35 @@
 extends Node
 
 signal speak(who, msg)
-signal showchat(flag)
 signal helptext(msg)
 
 var co # coroutine
 var isPlaying : bool = true
-var isShaking : bool = true
+var count : int = 0
 
-
-func shake():
-	$"../camshaker".shake = 300
-	
-func shaking():
-	return $"../camshaker".shake > 0
-	
 func _ready():
-	emit_signal("showchat", false)
 	co = script()
 
 func _on_step():
 	if isPlaying:
 		if co: co = co.resume()
+		count += 1
 
 func sleep(seconds):
 	isPlaying = false
+	var lastCount = count
 	yield(get_tree().create_timer(seconds), "timeout")
-	isPlaying = true
+	if count == lastCount:
+		isPlaying = true
 
 func find(name):
 	return $sprites.get_node(name)
+
+func shake(frames=300):
+	$"../camshaker".shake = frames
+
+func shaking():
+	return $"../camshaker".shake > 0
 
 func teddy(msg):
 	emit_signal("speak", "teddy", msg)
@@ -44,9 +44,13 @@ func helptext(msg):
 
 func _process(_delta):
 	if Input.is_key_pressed(KEY_0):
-		shake()
+		shake(0)
+		isPlaying = true
 
 # --------------------------------------
+# logic specific to this room
+# --------------------------------------
+signal showchat(flag)
 
 func script():
 	emit_signal("showchat", false)
