@@ -1,13 +1,11 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://floor-tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://sprites/exit.png" type="Texture" id=2]
 [ext_resource path="res://sprites/teleporter.png" type="Texture" id=3]
-[ext_resource path="res://sprites/blocks.png" type="Texture" id=4]
+[ext_resource path="res://ernie.tscn" type="PackedScene" id=4]
 [ext_resource path="res://sprites/teddy.png" type="Texture" id=5]
 [ext_resource path="res://sprites/ivan.png" type="Texture" id=6]
-[ext_resource path="res://ernie.gd" type="Script" id=7]
-[ext_resource path="res://sprites/hero.png" type="Texture" id=8]
 [ext_resource path="res://room0.gd" type="Script" id=9]
 [ext_resource path="res://episode0/screenshot.png" type="Texture" id=10]
 [ext_resource path="res://chatroom.gd" type="Script" id=11]
@@ -16,68 +14,65 @@
 [ext_resource path="res://sidebar.gd" type="Script" id=14]
 [ext_resource path="res://helptext.gd" type="Script" id=15]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 16.4678
-
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 128, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 256, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 384, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 512, 0, 128, 128 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=7]
+
+[sub_resource type="RectangleShape2D" id=8]
 
 [sub_resource type="RectangleShape2D" id=9]
 
-[sub_resource type="RectangleShape2D" id=10]
-
-[sub_resource type="DynamicFontData" id=12]
+[sub_resource type="DynamicFontData" id=10]
 font_path = "res://fonts/RobotoCondensed-Bold.ttf"
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=11]
 size = 50
-font_data = SubResource( 12 )
+font_data = SubResource( 10 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.0666667, 0.0627451, 0.0745098, 1 )
 expand_margin_left = 5.0
 expand_margin_right = 5.0
 expand_margin_top = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="DynamicFontData" id=14]
+[sub_resource type="DynamicFontData" id=13]
 font_path = "res://fonts/RobotoCondensed-Bold.ttf"
 
-[sub_resource type="DynamicFont" id=15]
+[sub_resource type="DynamicFont" id=14]
 size = 24
-font_data = SubResource( 14 )
+font_data = SubResource( 13 )
 
 [node name="scene" type="Node2D"]
 position = Vector2( -9.88818, -48.0291 )
@@ -96,63 +91,6 @@ position = Vector2( 1023.42, 1029.73 )
 scale = Vector2( 3.16684, 3.16684 )
 texture = ExtResource( 10 )
 
-[node name="blocks" type="Node2D" parent="."]
-visible = false
-position = Vector2( 334.412, 281.499 )
-
-[node name="block-r" type="Sprite" parent="blocks"]
-position = Vector2( -9.52441, -75.1369 )
-texture = ExtResource( 4 )
-hframes = 9
-
-[node name="block-r2" type="Sprite" parent="blocks"]
-position = Vector2( -11.6409, 77.2535 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 1
-
-[node name="block-r3" type="Sprite" parent="blocks"]
-position = Vector2( 152.487, 81.3903 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 2
-
-[node name="block-r4" type="Sprite" parent="blocks"]
-position = Vector2( 150.274, 2.11658 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 3
-
-[node name="block-r5" type="Sprite" parent="blocks"]
-position = Vector2( 151.332, -75.137 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 4
-
-[node name="block-r6" type="Sprite" parent="blocks"]
-position = Vector2( 66.6708, -77.2535 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 5
-
-[node name="block-r7" type="Sprite" parent="blocks"]
-position = Vector2( 70.9039, 74.0787 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 6
-
-[node name="block-r8" type="Sprite" parent="blocks"]
-position = Vector2( 0, 4.23303 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 7
-
-[node name="block-r9" type="Sprite" parent="blocks"]
-position = Vector2( 77.2534, 4.23309 )
-texture = ExtResource( 4 )
-hframes = 9
-frame = 8
-
 [node name="room" type="Node2D" parent="."]
 script = ExtResource( 9 )
 
@@ -165,22 +103,7 @@ tile_data = PoolIntArray( -2, 1, 0, -1, 1, 65537, -65536, 2, 0, -65535, 2, 65537
 
 [node name="sprites" type="Node2D" parent="room"]
 
-[node name="ernie" type="KinematicBody2D" parent="room/sprites"]
-position = Vector2( 709.333, 1432 )
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="shape" type="CollisionShape2D" parent="room/sprites/ernie"]
-visible = false
-position = Vector2( 2.33331, 0.666626 )
-scale = Vector2( 2, 2 )
-shape = SubResource( 1 )
-
-[node name="sprite" type="Sprite" parent="room/sprites/ernie"]
-texture = ExtResource( 8 )
-hframes = 4
+[node name="ernie" parent="room/sprites" instance=ExtResource( 4 )]
 
 [node name="teleporter" type="RigidBody2D" parent="room/sprites"]
 visible = false
@@ -191,14 +114,14 @@ __meta__ = {
 }
 
 [node name="sprite" type="AnimatedSprite" parent="room/sprites/teleporter"]
-frames = SubResource( 7 )
+frames = SubResource( 6 )
 frame = 2
 playing = true
 
 [node name="shape" type="CollisionShape2D" parent="room/sprites/teleporter"]
 visible = false
 scale = Vector2( 3, 3 )
-shape = SubResource( 8 )
+shape = SubResource( 7 )
 
 [node name="ivan" type="RigidBody2D" parent="room/sprites"]
 visible = false
@@ -214,7 +137,7 @@ texture = ExtResource( 6 )
 visible = false
 position = Vector2( -3, 2 )
 scale = Vector2( 2, 6 )
-shape = SubResource( 9 )
+shape = SubResource( 8 )
 
 [node name="teddy" type="RigidBody2D" parent="room/sprites"]
 position = Vector2( 1848.76, 1465.15 )
@@ -231,13 +154,13 @@ texture = ExtResource( 5 )
 visible = false
 position = Vector2( 0, 26 )
 scale = Vector2( 2.5, 2.5 )
-shape = SubResource( 10 )
+shape = SubResource( 9 )
 
 [node name="shape-head" type="CollisionShape2D" parent="room/sprites/teddy"]
 visible = false
 position = Vector2( 1.88562, -27.7401 )
 scale = Vector2( 6, 2.5 )
-shape = SubResource( 10 )
+shape = SubResource( 9 )
 
 [node name="exit" type="Sprite" parent="room/sprites"]
 visible = false
@@ -260,7 +183,7 @@ margin_right = 949.0
 margin_bottom = -424.0
 rect_pivot_offset = Vector2( 28.8586, 7 )
 theme = ExtResource( 12 )
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0.92549, 0.768627, 0.14902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Previously..."
@@ -292,8 +215,8 @@ margin_right = 626.0
 margin_bottom = 60.0
 rect_pivot_offset = Vector2( 28.8586, 7 )
 theme = ExtResource( 12 )
-custom_styles/normal = SubResource( 11 )
-custom_fonts/font = SubResource( 13 )
+custom_styles/normal = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "Tetraminex"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -330,7 +253,7 @@ margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 12 )
-custom_fonts/bold_font = SubResource( 15 )
+custom_fonts/bold_font = SubResource( 14 )
 bbcode_enabled = true
 bbcode_text = "[b]Teddy Tetraminus[/b]
 [color=#ccc]hello? here is some long text that needs to wrap.[/color]"
