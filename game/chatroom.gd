@@ -15,9 +15,9 @@ func _on_room0_speak(who, msg):
 	var name = names.get(who)
 	if name == null: push_error('unknown cast member: ' + who)
 	else:
-		var text = "[b][color=#999]" + name + "[/color][/b]: " + msg
+		var text = "[b]" + name + "[/b]\n[color=#ccc]"+msg+"[/color]"
 		var icon = icons[who]   #$"/root/scene/room/sprites".get_node(who).get_node("sprite").texture
-		card.get_node("grid/icon").texture = icon
+		card.get_node("box/icon").texture = icon
 		card.get_node("text").bbcode_text = text
 		card.visible = true
 		$vbox.add_child(card)
