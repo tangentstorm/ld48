@@ -12,6 +12,23 @@ const JUMP  = G * -8
 const GROUND_FRICTION = Vector2(0.8,1)
 const AIR_FRICTION = Vector2(0.9,1)
 
+const QWERTY = {
+	'up': KEY_W,
+	'lf': KEY_A,
+	'dn': KEY_S,
+	'rt': KEY_D,
+	'ex': KEY_E }
+
+const DVORAK = {  # guess which keyboard layout I use...
+	'up': KEY_COMMA,
+	'lf': KEY_A,
+	'dn': KEY_O,
+	'rt': KEY_E,
+	'ex': KEY_PERIOD }
+
+var keys = QWERTY
+var useDvorak = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -21,9 +38,8 @@ func _physics_process(_delta):
 
 	dxy = move_and_slide(dxy + G, Vector2.UP)
 
-	var goL = Input.is_key_pressed(KEY_LEFT) or Input.is_key_pressed(KEY_A)
-	var goR = (Input.is_key_pressed(KEY_RIGHT) or Input.is_key_pressed(KEY_D)
-		or Input.is_key_pressed(KEY_E))
+	var goL = Input.is_key_pressed(KEY_LEFT) or Input.is_key_pressed(keys['lf'])
+	var goR = Input.is_key_pressed(KEY_RIGHT) or Input.is_key_pressed(keys['rt'])
 
 	if is_on_floor() or is_on_wall():
 		if is_on_wall(): dxy.x = 0
@@ -41,6 +57,10 @@ func _physics_process(_delta):
 
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().reload_current_scene()
+
+	if Input.is_key_pressed(KEY_F9):
+		useDvorak = not useDvorak
+		keys = QWERTY if useDvorak else DVORAK
 
 	was_on_floor = is_on_floor()
 
