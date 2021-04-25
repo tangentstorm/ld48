@@ -192,7 +192,7 @@ __meta__ = {
 
 [node name="sprite" type="AnimatedSprite" parent="room/sprites/teleporter"]
 frames = SubResource( 7 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="shape" type="CollisionShape2D" parent="room/sprites/teleporter"]
@@ -254,10 +254,10 @@ current = true
 zoom = Vector2( 2, 2 )
 
 [node name="helptext" type="Label" parent="camshaker/camera"]
-margin_left = -304.0
-margin_top = -444.0
+margin_left = -297.0
+margin_top = -484.0
 margin_right = 949.0
-margin_bottom = -384.0
+margin_bottom = -424.0
 rect_pivot_offset = Vector2( 28.8586, 7 )
 theme = ExtResource( 12 )
 custom_fonts/font = SubResource( 13 )
