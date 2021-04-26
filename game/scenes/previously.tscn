@@ -1,18 +1,18 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://floor-tiles.tres" type="TileSet" id=1]
-[ext_resource path="res://sprites/exit.png" type="Texture" id=2]
+[ext_resource path="res://ernie.tscn" type="PackedScene" id=2]
 [ext_resource path="res://teleporter.tscn" type="PackedScene" id=3]
-[ext_resource path="res://ernie.tscn" type="PackedScene" id=4]
-[ext_resource path="res://sprites/teddy.png" type="Texture" id=5]
+[ext_resource path="res://episode0/screenshot.png" type="Texture" id=4]
+[ext_resource path="res://sprites/exit.png" type="Texture" id=5]
 [ext_resource path="res://sprites/ivan.png" type="Texture" id=6]
+[ext_resource path="res://sprites/teddy.png" type="Texture" id=7]
+[ext_resource path="res://chatroom.gd" type="Script" id=8]
 [ext_resource path="res://room0.gd" type="Script" id=9]
-[ext_resource path="res://episode0/screenshot.png" type="Texture" id=10]
-[ext_resource path="res://chatroom.gd" type="Script" id=11]
-[ext_resource path="res://ui_theme.tres" type="Theme" id=12]
-[ext_resource path="res://camshaker.gd" type="Script" id=13]
-[ext_resource path="res://sidebar.gd" type="Script" id=14]
-[ext_resource path="res://helptext.gd" type="Script" id=15]
+[ext_resource path="res://sidebar.gd" type="Script" id=10]
+[ext_resource path="res://camshaker.gd" type="Script" id=11]
+[ext_resource path="res://helptext.gd" type="Script" id=12]
+[ext_resource path="res://ui_theme.tres" type="Theme" id=13]
 
 [sub_resource type="RectangleShape2D" id=8]
 
@@ -54,7 +54,7 @@ autostart = true
 visible = false
 position = Vector2( 1023.42, 1029.73 )
 scale = Vector2( 3.16684, 3.16684 )
-texture = ExtResource( 10 )
+texture = ExtResource( 4 )
 
 [node name="room" type="Node2D" parent="."]
 script = ExtResource( 9 )
@@ -68,7 +68,7 @@ tile_data = PoolIntArray( -2, 1, 0, -1, 1, 65537, -65536, 2, 0, -65535, 2, 65537
 
 [node name="sprites" type="Node2D" parent="room"]
 
-[node name="ernie" parent="room/sprites" instance=ExtResource( 4 )]
+[node name="ernie" parent="room/sprites" instance=ExtResource( 2 )]
 position = Vector2( 881.004, 1424.39 )
 
 [node name="teleporter" parent="room/sprites" instance=ExtResource( 3 )]
@@ -99,7 +99,7 @@ __meta__ = {
 }
 
 [node name="sprite" type="Sprite" parent="room/sprites/teddy"]
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 
 [node name="shape-body" type="CollisionShape2D" parent="room/sprites/teddy"]
 visible = false
@@ -116,10 +116,10 @@ shape = SubResource( 9 )
 [node name="exit" type="Sprite" parent="room/sprites"]
 visible = false
 position = Vector2( 198.296, 1347.86 )
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 
 [node name="camshaker" type="Node2D" parent="."]
-script = ExtResource( 13 )
+script = ExtResource( 11 )
 
 [node name="camera" type="Camera2D" parent="camshaker"]
 position = Vector2( 369.717, 1046.55 )
@@ -133,13 +133,13 @@ margin_top = -484.0
 margin_right = 949.0
 margin_bottom = -424.0
 rect_pivot_offset = Vector2( 28.8586, 7 )
-theme = ExtResource( 12 )
+theme = ExtResource( 13 )
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0.92549, 0.768627, 0.14902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Previously..."
 align = 1
-script = ExtResource( 15 )
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -149,7 +149,7 @@ margin_left = -955.0
 margin_top = -535.0
 margin_right = -315.0
 margin_bottom = 545.0
-script = ExtResource( 14 )
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -165,7 +165,7 @@ custom_constants/separation = 10
 margin_right = 626.0
 margin_bottom = 60.0
 rect_pivot_offset = Vector2( 28.8586, 7 )
-theme = ExtResource( 12 )
+theme = ExtResource( 13 )
 custom_styles/normal = SubResource( 12 )
 custom_fonts/font = SubResource( 11 )
 text = "Tetraminex"
@@ -193,7 +193,7 @@ margin_right = 32.0
 margin_bottom = 36.0
 rect_min_size = Vector2( 32, 32 )
 size_flags_stretch_ratio = 0.0
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 expand = true
 stretch_mode = 1
 
@@ -203,7 +203,7 @@ margin_right = 626.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 12 )
+theme = ExtResource( 13 )
 custom_fonts/bold_font = SubResource( 14 )
 bbcode_enabled = true
 bbcode_text = "[b]Teddy Tetraminus[/b]
@@ -219,7 +219,7 @@ margin_right = 626.0
 margin_bottom = 1066.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
-script = ExtResource( 11 )
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
