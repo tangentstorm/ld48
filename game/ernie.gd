@@ -28,27 +28,60 @@ const DVORAK = {  # guess which keyboard layout I use...
 
 var keys = QWERTY
 var useDvorak = false
-
 var interacting = false
+var has_teleporter = true
+var obstructed = false
+
+func start_beam():
+	$beam.visible = true
+	obstructed = null
+	update_beam()
+
+func cancel_beam():
+	$beam.visible = false
+	Input.set_custom_mouse_cursor(null, Input.CURSOR_ARROW)
+
+
+func fire(at_point):
+	if $beam.visible and not obstructed:
+		position = at_point
+	$beam.visible = false
+
+
+func update_beam():
+	var was_obstructed = obstructed
+
+	var vp = get_viewport()
+	var mp = vp.get_mouse_position() - position  # mouse in relative coords
+	$beam.points[0] = Vector2.ZERO
+
+	$ray.cast_to = mp
+	obstructed = $ray.is_colliding()
+	if obstructed: $beam.points[1] = $ray.get_collision_point() - position
+	else: $beam.points[1] = mp
+
+	if obstructed != was_obstructed:
+		var cursor = preload("res://sprites/cursor.png")
+		$beam.default_color = Color.greenyellow
+		if obstructed:
+			cursor = preload("res://sprites/cursor-blocked.png")
+			$beam.default_color = Color.firebrick
+		Input.set_custom_mouse_cursor(cursor, 0, Vector2(64,64))
 
 func _input(event):
 	# teleporter
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and has_teleporter:
 		if event.pressed:
 			match event.button_index:
-				BUTTON_RIGHT: $beam.visible = true
-				BUTTON_LEFT:
-					if $beam.visible:
-						position = event.position
-						$beam.visible = false
+				BUTTON_RIGHT: start_beam()
+				BUTTON_LEFT: fire(event.position)
 		elif event.button_index == BUTTON_RIGHT:
-			$beam.visible = false
+			cancel_beam()
+
 
 
 func _physics_process(_delta):
-	var vp = get_viewport()
-	$beam.points[0] = Vector2.ZERO
-	$beam.points[1] = vp.get_mouse_position() - position
+	if $beam.visible: update_beam()
 
 	dxy = move_and_slide(dxy + G, Vector2.UP)
 
@@ -76,13 +109,6 @@ func _physics_process(_delta):
 		useDvorak = not useDvorak
 		keys = QWERTY if useDvorak else DVORAK
 
-	if Input.is_key_pressed(KEY_1):
-		Input.set_custom_mouse_cursor(preload("res://sprites/cursor-blocked.png"), 0, Vector2(64,64))
-	if Input.is_key_pressed(KEY_2):
-		Input.set_custom_mouse_cursor(preload("res://sprites/cursor.png"), 0, Vector2(64,64))
-	if Input.is_key_pressed(KEY_3):
-		Input.set_custom_mouse_cursor(null, Input.CURSOR_ARROW)
-		
 	if Input.is_key_pressed(keys['ex']):
 		if focus and !interacting:
 			interacting = true

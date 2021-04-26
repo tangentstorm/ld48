@@ -11,6 +11,7 @@ var sleptFor = 0.0
 
 func _ready():
 	co = script()
+	$sprites/ernie.has_teleporter = false
 
 func _on_step():
 	if sleepFor <= 0:
