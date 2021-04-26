@@ -29,13 +29,26 @@ const DVORAK = {  # guess which keyboard layout I use...
 var keys = QWERTY
 var useDvorak = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 var interacting = false
 
+func _input(event):
+	# teleporter
+	if event is InputEventMouseButton:
+		if event.pressed:
+			match event.button_index:
+				BUTTON_RIGHT: $beam.visible = true
+				BUTTON_LEFT:
+					if $beam.visible:
+						position = event.position
+						$beam.visible = false
+		elif event.button_index == BUTTON_RIGHT:
+			$beam.visible = false
+
+
 func _physics_process(_delta):
+	var vp = get_viewport()
+	$beam.points[0] = Vector2.ZERO
+	$beam.points[1] = vp.get_mouse_position() - position
 
 	dxy = move_and_slide(dxy + G, Vector2.UP)
 
@@ -59,9 +72,16 @@ func _physics_process(_delta):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().reload_current_scene()
 
-	if Input.is_key_pressed(KEY_F9):
+	if Input.is_key_pressed(KEY_9):
 		useDvorak = not useDvorak
 		keys = QWERTY if useDvorak else DVORAK
+
+	if Input.is_key_pressed(KEY_1):
+		Input.set_custom_mouse_cursor(preload("res://sprites/cursor-blocked.png"), 0, Vector2(64,64))
+	if Input.is_key_pressed(KEY_2):
+		Input.set_custom_mouse_cursor(preload("res://sprites/cursor.png"), 0, Vector2(64,64))
+	if Input.is_key_pressed(KEY_3):
+		Input.set_custom_mouse_cursor(null, Input.CURSOR_ARROW)
 		
 	if Input.is_key_pressed(keys['ex']):
 		if focus and !interacting:
